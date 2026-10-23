@@ -2,9 +2,8 @@ name: Aggiorna Classifiche CSI
 
 on:
   schedule:
-    # Esegue l'aggiornamento automatico tutti i giorni alle 8:00 e alle 18:00
     - cron: '0 8,18 * * *'
-  workflow_dispatch: # Permette di eseguirlo manualmente con un clic da GitHub
+  workflow_dispatch:
 
 jobs:
   run-scraper:
@@ -23,9 +22,11 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Crea il file credentials.json dai Secret di GitHub
+      - name: Crea il file credentials.json in modo sicuro
+        env:
+          GCP_CREDS_CONTENT: ${{ secrets.GCP_CREDENTIALS }}
         run: |
-          echo "${{ secrets.GCP_CREDENTIALS }}" > credentials.json
+          python -c 'import os; open("credentials.json", "w", encoding="utf-8").write(os.environ["GCP_CREDS_CONTENT"])'
 
       - name: Esegui lo script Python di aggiornamento
         run: python aggiorna_classifiche.py
