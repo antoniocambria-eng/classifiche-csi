@@ -1,0 +1,31 @@
+name: Aggiorna Classifiche CSI
+
+on:
+  schedule:
+    # Esegue l'aggiornamento automatico tutti i giorni alle 8:00 e alle 18:00
+    - cron: '0 8,18 * * *'
+  workflow_dispatch: # Permette di eseguirlo manualmente con un clic da GitHub
+
+jobs:
+  run-scraper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del codice
+        uses: actions/checkout@v4
+
+      - name: Configura Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Installa le dipendenze
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Crea il file credentials.json dai Secret di GitHub
+        run: |
+          echo "${{ secrets.GCP_CREDENTIALS }}" > credentials.json
+
+      - name: Esegui lo script Python di aggiornamento
+        run: python aggiorna_classifiche.py
