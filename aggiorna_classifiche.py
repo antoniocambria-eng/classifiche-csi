@@ -50,8 +50,8 @@ creds = Credentials.from_service_account_file(CREDS_FILE, scopes=SCOPES)
 client = gspread.authorize(creds)
 
 # 3. Apertura del foglio "Campionati" e della scheda "Date"
-spreadsheet = client.open("Campionati")
-sheet = spreadsheet.worksheet("Date")
+SPREADSHEET_ID = "1gtVEsFiozYI467yjxrf7N3TYH8gjSECk40D-nj6zkvc"
+spreadsheet = client.open_by_key(SPREADSHEET_ID)
 
 # 4. Estrazione dei dati
 print("Estrazione classifica 2015...")
