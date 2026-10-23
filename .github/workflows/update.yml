@@ -2,9 +2,9 @@ name: Aggiorna Classifiche CSI
 
 on:
   schedule:
-    # Esegue lo script ogni giorno alle 07:00 UTC (08:00 ora italiana)
-    - cron: '0 7 * * *'
-  workflow_dispatch: # Mantiene la possibilità di avviarlo manualmente quando vuoi
+    # Esegue lo script ogni giorno alle 10:00 ora italiana (09:00 UTC)
+    - cron: '0 9 * * *'
+  workflow_dispatch: # Permette anche l'avvio manuale quando serve
 
 jobs:
   run-scraper:
