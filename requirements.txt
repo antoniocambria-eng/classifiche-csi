@@ -1,0 +1,6 @@
+Plaintext
+
+gspread
+requests
+google-auth
+beautifulsoup4
