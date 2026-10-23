@@ -1,5 +1,3 @@
-Plaintext
-
 gspread
 requests
 google-auth
